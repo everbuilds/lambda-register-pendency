@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  registertopendency:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs14.x
+      CodeUri: .
+      Description: ''
+      MemorySize: 500
+      Timeout: 60
+      Role: 'arn:aws:iam::942766427804:role/LambdaToAppSync'
+      Events:
+        Schedule1:
+          Type: Schedule
+          Properties:
+            Schedule: rate(2 minutes)
+      Environment:
+        Variables:
+          REGION: eu-central-1
+      Layers:
+        - >-
+          arn:aws:lambda:eu-central-1:942766427804:layer:lambda-to-appsync-dependecy:1
